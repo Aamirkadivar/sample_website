@@ -1,0 +1,2 @@
+# Kadivar
+ A Django repo
