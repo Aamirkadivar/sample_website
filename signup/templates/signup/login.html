@@ -1,0 +1,102 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>Login Example</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </header>
+    <body>
+        <header class="main_header">
+            <nav id="nav_login" class="nav_container">
+                <a href="#">
+                    <img src="" alt=""/>
+                </a>
+                <div class="nav_toggler"> 
+                    <ul class="nav_list"> 
+                        <li class="nav_item"><a href="#">About us</a>
+                            <ul class="submenu">
+                                <li class="submenu_item"><a href="#">History</a></li>
+                                <li class="submenu_item"><a href="#">purpose</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav_item"><a href="#">Support</a></li>
+                        <li class="nav_item"><a href="#">VIP</a></li>
+                        <li class="nav_item"><a href="{% url 'signup' %}">Signup</a></li>
+                        <li class="nav_item"><a href="../">Home</a>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div class="lodin-wrapper">
+            <span class="login-side">
+                <form method="POST" name="loginform" class="my-form">
+                    {% csrf_token %}
+                    <div class="login-welcome-row">
+                        <h1>Welcome back</h1>
+                    </div>
+                    <div class="socials-row">
+                        <a href="#" title="Use Google"><img src="{% static '3456684.png' %}" alt="Google">Log in with Google</a>
+                        <a href="#" title="Use Apple"><img src="{% static 'apple.png' %}" alt="Apple">Log in with Apple</a>
+                    </div>
+                    <div class="divider">
+                        <span class="divider-line"></span>
+                        Or
+                        <span class="divider-line"></span>
+                    </div>
+                    <div class="text-field">
+                        
+                        <label for="username">Username:</label>
+                        
+                        {% render_field form.username placeholder="Your Username" id="username"  class="input_box" %}
+                    </div>
+                    <div class="text-field">
+                        <label for="password">Password:</label>
+                        
+                        {% render_field form.password class="input_box"  id="password"  placeholder="Your Password" %}
+                    </div>
+                    <button type="submit"class="my-form__button">Login</button>
+                    <div class="my-form__actions">
+                        {% if messages %}
+                        <div class="error">
+                            {% for message in messages %}
+                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}    
+                        </div>                        
+                        
+                        <div class="my-form__row">
+                            <span>Did you forget your password?</span>
+                            <a href="{% url 'password_reset' %}" title="Reset Password">Reset Password</a>
+                        </div>
+                        <div class="my-form__sinup">
+                            <a href="{% url 'signup' %}" title="Create Account">Create Account</a>
+                        </div>
+                    </div>
+                </form>
+            </span>
+        </div>
+        <!-- <script src="script.js"></script> -->
+        <footer class="main_footer">
+            <div class="container">
+              <div class="footer_item">
+                <h6>© 2023 AI Group</h6>
+              </div>
+              <div class="footer_item">
+                <h6>Address:</h6>
+                <p>123 Main Street</p>
+                <p>Anytown, CA 12345</p>
+              </div>
+              <div class="footer_item">
+                <h6>Phone:</h6>
+                <p>(555) 555-5555</p>
+              </div>
+              <div class="footer_item">
+                <h6>Email:</h6>
+                <a href="#">info@aigroup.com</a>
+              </div>
+            </div>
+          </footer>
+    </body>
+</html>
