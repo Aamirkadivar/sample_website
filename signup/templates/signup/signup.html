@@ -1,0 +1,128 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <link rel="stylesheet" href="{% static 'style_signup.css' %}">
+    </head>
+    <body>
+        <header>
+            <title>Signup Example</title>
+        </header>
+        <header class="main_header">
+            <nav id="nav_login" class="nav_container">
+                <div class="nav_toggler"> 
+                    <ul class="nav_list"> 
+                        <li class="nav_item"><a href="#">About us</a>
+                            <ul class="submenu">
+                                <li class="submenu_item"><a href="#">History</a></li>
+                                <li class="submenu_item"><a href="#">purpose</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav_item"><a href="#">Support</a></li>
+                        <li class="nav_item"><a href="#">VIP</a></li>
+                        <li class="nav_item"><a href="{% url 'login' %}">Login</a></li>
+                        <li class="nav_item"><a href="../">Home</a>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div class="lodin-wrapper">
+            <span class="login-side">
+                <!-- <a href="#" title="Logo">
+                    <img src="" src="assets/logo.png" alt="logo">
+                </a> -->
+                
+                <form method="POST" name="loginform" class="my-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="login-welcome-row">
+                        <h1>Welcome back</h1>
+                        <p>Please enter your details!</p>
+                    </div>
+                    <div class="socials-row">
+                        <a href="#" title="Use Google"><img src="{% static '3456684.png' %}" alt="Google">Log in with Google</a>
+                        <a href="#" title="Use Apple"><img src="{% static 'apple.png' %}" alt="Apple">Log in with Apple</a>
+                    </div>
+                    <div class="divider">
+                        <span class="divider-line"></span>
+                        Or
+                        <span class="divider-line"></span>
+                    </div>
+                    <div class="text-field">
+                        <label for="first_name">Name:</label>
+                        <input title="first_name" name="first_name" id="first_name" placeholder="Your Name" type="text">
+                        <!-- {% render_field form.first_name placeholder="Your Name" id="name"  class="input_box" %} -->
+                    </div>
+                    <div class="text-field">
+                        <label for="lastname">Lastname:</label>
+                        {% render_field form.last_name class="input_box" id="lastname" name="lastname" placeholder="Your Lastname" %}
+                    </div>
+                    <div class="text-field">
+                        <label >National ID:</label>
+                        {% render_field form.national_id class="input_box" id="National ID" name="National ID" placeholder="National ID" %}
+                    </div>
+                    <div class="text-field">
+                        <label for="email">Email:</label>
+                        {% render_field form.email class="input_box" id="email" name="email" placeholder="Your Email" %}
+                    </div>
+                    <div class="text-field">
+                        <label for="username">Username:</label>
+                        {% render_field form.username  class="input_box" id="username" name="username" placeholder="Your Username" %}
+                    </div>
+                    <div class="text-field">
+                        <label for="password">Password:</label>
+                        {% render_field form.password1  class="input_box"  id="password" name="password" placeholder="Your Password" %}
+                    </div>
+                    <div class="text-field">
+                        <label for="password">Confirm Password:</label>
+                        {% render_field form.password2  class="input_box"  id="password" name="password" placeholder="Your Password Confirmation" %}
+                    </div>
+                    <div class="text-field">
+                        <div class="pic-upload2">
+                            <label >Profile Picture:</label>
+                            {% render_field form.profile_picture id="profile_picture" name="profile_picture" class="input_box" %}
+                        </div>
+                    </div>
+                    <!-- {{ form.as_p }} -->
+                    <button type="submit" class="my-form__button">Sign up</button>
+                    {% if messages %}
+                        <div class="error">
+                            {% for message in messages %}
+                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                            {% endfor %}
+                    {% endif %} 
+                    <div class="my-form__sinup">
+                        <a href="{% url 'login' %}" title="have as Account">Already Have An Account?! log In.</a>
+                    </div>
+                    <div class="my-form__actions">
+                    </div>
+                    
+                </form>
+            </span>
+            
+        </div>
+        <!-- <script src="script.js"></script> -->
+        <footer class="main_footer">
+            <div class="container">
+              <div class="footer_item">
+                <h6>© 2023 AI Group</h6>
+              </div>
+              <div class="footer_item">
+                <h6>Address:</h6>
+                <p>123 Main Street</p>
+                <p>Anytown, CA 12345</p>
+              </div>
+              <div class="footer_item">
+                <h6>Phone:</h6>
+                <p>(555) 555-5555</p>
+              </div>
+              <div class="footer_item">
+                <h6>Email:</h6>
+                <a href="#">info@aigroup.com</a>
+              </div>
+            </div>
+          </footer>
+    </body>
+</html>
