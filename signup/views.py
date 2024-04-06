@@ -13,6 +13,43 @@ from .forms import UpdateUserForm, UpdateProfileForm
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+
+
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from .serializer import UserSerializer
+
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import BasicAuthentication
+
+
+class HomeAPI(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        content = {'message': 'Hello, World!'}
+        return Response(content)
+
+class UserRegistrationView(generics.CreateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
+
+class UserLoginView(APIView):
+    def post(self, request):
+        user = authenticate(username=request.data['username'], password=request.data['password'])
+        if user:
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key})
+        else:
+            return Response({'error': 'Invalid credentials'}, status=401)
+    
+
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'signup/password_reset.html'
     email_template_name = 'signup/password_reset_email.html'
