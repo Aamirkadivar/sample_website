@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+#for_APIs
+from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,6 +45,11 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'signup.apps.SignupConfig',
     'widget_tweaks',
+
+    #API
+    'rest_framework',
+    'rest_framework.authtoken'
+    
 ]
 
 MIDDLEWARE = [
@@ -139,3 +147,10 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = str(os.getenv('med.iran.q@gmail.com'))
 EMAIL_HOST_PASSWORD = str(os.getenv('lnvojbjccmtmupgj'))
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.BasicAuthentication',
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+}
