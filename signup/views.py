@@ -119,11 +119,9 @@ def profile(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.doctor)
-        print("goraz1")
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            print("goraz2")
             return redirect('home')
     else:
         user_form = UpdateUserForm(instance=request.user)
